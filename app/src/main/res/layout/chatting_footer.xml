@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom">
+
+        <com.saysay.ljh.chattingui.widgets.EditTextPreIme
+            android:id="@+id/et_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="85dp"
+            android:background="@null"
+            android:inputType="textMultiLine"
+            android:lineSpacingExtra="3dp"
+            android:maxLines="3"
+            android:minHeight="48dp"
+            android:paddingBottom="9dp"
+            android:text="input" />
+
+        <ImageView
+            android:id="@+id/iv_voice"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignBottom="@id/et_input"
+            android:padding="9dp"
+            android:src="@mipmap/chatting_voice_n" />
+
+        <ImageView
+            android:id="@+id/iv_extra"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:padding="9dp"
+            android:src="@mipmap/chatting_extra_n"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/iv_emoji"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_alignBottom="@id/et_input"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginRight="50dp"
+            android:padding="7dp"
+            android:src="@drawable/chatting_emoji" />
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="39dp"
+            android:layout_height="29dp"
+            android:layout_alignBottom="@id/et_input"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="9dp"
+            android:layout_marginRight="9dp"
+            android:background="@drawable/chatting_send"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="发送"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+
+        <Button
+            android:id="@+id/btn_voice"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
+            android:text="按住 请说话"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/v_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/et_input"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="-9dp"
+            android:background="@color/colorPrimary" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_color" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_extra"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorAccent"
+        android:visibility="gone"></android.support.v4.view.ViewPager>
+</merge>

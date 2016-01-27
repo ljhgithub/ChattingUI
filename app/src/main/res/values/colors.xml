@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="send">#00CD00</color>
+    <color name="pressed_send">#8000CD00</color>
+
+    <color name="line_color">#e5e5e5</color>
+</resources>
