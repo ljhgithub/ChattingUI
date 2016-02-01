@@ -4,7 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -24,7 +26,6 @@ public class ChattingActivity extends AppCompatActivity {
         mChattingFooter = (ChattingFooter) findViewById(R.id.chatting_footer);
         mRoot = findViewById(R.id.ll_root);
         mChattingFooter.setActivity(this, mRoot);
-
 
     }
 
@@ -65,8 +66,10 @@ public class ChattingActivity extends AppCompatActivity {
             if (localView != null && localView.getWindowToken() != null) {
                 IBinder windowToken = localView.getWindowToken();
                 b = inputMethodManager.hideSoftInputFromWindow(windowToken, 0);
+
             }
         }
         return b;
     }
+
 }

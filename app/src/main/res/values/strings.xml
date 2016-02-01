@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">ChattingUI</string>
     <string name="action_settings">Settings</string>
+
+    <string name="chatfooter_cancel_rcd">手指上滑，取消发送</string>
+    <string name="chatfooter_cancel_rcd_release">松开手指，取消发送</string>
+    <string name="chatfooter_too_short">录音时间太短</string>
 </resources>

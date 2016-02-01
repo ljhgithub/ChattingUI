@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center" >
+
+    <FrameLayout
+        android:id="@+id/voice_rcd_hint_rcding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom|center"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/voice_rcd_hint_anim_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/voice_rcd_hint_bg"
+            android:gravity="bottom|center"
+            android:minWidth="160.0dip"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="80.0dip"
+                android:layout_height="120.0dip"
+                android:src="@mipmap/voice_rcd_hint" />
+
+            <ImageView
+                android:id="@+id/voice_rcd_hint_anim"
+                android:layout_width="80.0dip"
+                android:layout_height="120.0dip"
+                android:layout_alignBottom="@+id/imageView1"
+                android:layout_toRightOf="@+id/imageView1"
+                android:background="@mipmap/amp1" />
+
+            <TextView
+                android:id="@+id/voice_rcd_normal_wording"
+                android:layout_width="160.0dip"
+                android:layout_height="35dp"
+                android:layout_below="@+id/imageView1"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/chatfooter_cancel_rcd"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/voice_rcd_hint_cancel_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/voice_rcd_hint_bg"
+            android:gravity="center_horizontal"
+            android:minWidth="160.0dip"
+            android:orientation="vertical"
+            android:visibility="visible" >
+
+            <ImageView
+                android:id="@+id/voice_rcd_hint_cancel_icon"
+                android:layout_width="160.0dip"
+                android:layout_height="120.0dip"
+                android:src="@mipmap/rcd_cancel_icon" />
+
+            <TextView
+                android:id="@+id/voice_rcd_hint_cancel_text"
+                android:layout_width="160.0dip"
+                android:layout_height="35dp"
+                android:layout_below="@+id/voice_rcd_hint_cancel_icon"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/rcd_cancel_bg"
+                android:gravity="center"
+                android:text="@string/chatfooter_cancel_rcd_release"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/voice_rcd_hint_tooshort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/voice_rcd_hint_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="160.0dip"
+            android:layout_height="120.0dip"
+            android:src="@mipmap/voice_to_short" />
+
+        <TextView
+            android:layout_width="160.0dip"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:text="@string/chatfooter_too_short"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</RelativeLayout>

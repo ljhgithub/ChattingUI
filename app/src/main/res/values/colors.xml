@@ -8,4 +8,5 @@
     <color name="pressed_send">#8000CD00</color>
 
     <color name="line_color">#e5e5e5</color>
+    <color name="white">#fff</color>
 </resources>
