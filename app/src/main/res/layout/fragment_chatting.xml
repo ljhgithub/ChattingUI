@@ -6,26 +6,6 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:drawableLeft="@mipmap/ic_arrow_left"
-            android:gravity="center"
-            android:text="返回" />
-
-        <TextView
-            android:id="@+id/tv_contacts"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center" />
-
-    </RelativeLayout>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rlv_message"
         android:layout_width="match_parent"

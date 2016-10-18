@@ -1,15 +1,12 @@
 package com.saysay.ljh.chattingui.widgets;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Environment;
 import android.os.StatFs;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.PopupMenuCompat;
-import android.support.v4.widget.PopupWindowCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -24,11 +21,9 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.saysay.ljh.chattingui.R;
@@ -44,11 +39,11 @@ public class ChattingFooter extends LinearLayout implements View.OnClickListener
     private static final int CANCEL_DISTANCE = 60;
     private Context mContext;
     private View parentRoot, view, vLine;
-    private EditText etInput;
+    private EditTextPreIme etInput;
     private ImageView ivVoice, ivExtra, ivEmoji;
     private ViewPager vpExtra;
     private Button btnSend, btnVoice;
-    private AppCompatActivity mActivity;
+    private Activity mActivity;
     private int keyboardHeight;
     private LinearLayout.LayoutParams vpLp;
     private LayoutInflater mInflater;
@@ -68,7 +63,7 @@ public class ChattingFooter extends LinearLayout implements View.OnClickListener
         initView(context);
     }
 
-    public void setActivity(AppCompatActivity activity, View root) {
+    public void setActivity(Activity activity, View root) {
         mActivity = activity;
         parentRoot = root;
         parentRoot.getViewTreeObserver().addOnGlobalLayoutListener(this);
@@ -83,7 +78,7 @@ public class ChattingFooter extends LinearLayout implements View.OnClickListener
         mContext = context;
         setOrientation(VERTICAL);
         view = LayoutInflater.from(mContext).inflate(R.layout.chatting_footer, this, true);
-        etInput = (EditText) view.findViewById(R.id.et_input);
+        etInput = (EditTextPreIme) view.findViewById(R.id.et_input);
         ivVoice = (ImageView) view.findViewById(R.id.iv_voice);
         ivEmoji = (ImageView) view.findViewById(R.id.iv_emoji);
         ivExtra = (ImageView) view.findViewById(R.id.iv_extra);
@@ -105,7 +100,18 @@ public class ChattingFooter extends LinearLayout implements View.OnClickListener
         vpLp.weight = ViewGroup.LayoutParams.MATCH_PARENT;
         vpExtra.setLayoutParams(vpLp);
         btnVoice.setOnTouchListener(this);
-
+        etInput.setOnKeyBackListener(new EditTextPreIme.OnKeyBackListener() {
+            @Override
+            public boolean onKeyBack() {
+                if (isShowExtra()) {
+                    hideExtra();
+                    return true;
+                }
+                return false;
+            }
+        });
+        etInput.requestFocus();
+        etInput.setCursorVisible(false);
     }
 
     private ImageView mVoiceHintAnim;
@@ -131,8 +137,12 @@ public class ChattingFooter extends LinearLayout implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.et_input:
+                etInput.setCursorVisible(true);
                 showSoftInputFromWindow(etInput);
                 ivEmoji.setSelected(false);
+                if (null != mChattingFooterListener) {
+                    mChattingFooterListener.OnInEditMode();
+                }
                 break;
             case R.id.iv_voice:
                 hideSoftInputFromWindow(ivVoice);
@@ -155,14 +165,25 @@ public class ChattingFooter extends LinearLayout implements View.OnClickListener
                     setInputMode();
                     showSoftInputFromWindow(etInput);
                 }
-
+                if (null != mChattingFooterListener) {
+                    mChattingFooterListener.OnInEditMode();
+                }
                 break;
             case R.id.iv_extra:
                 vpExtra.setVisibility(VISIBLE);
                 setInputMode();
                 hideSoftInputFromWindow(ivExtra);
+                btnVoice.setVisibility(GONE);
+                etInput.setVisibility(VISIBLE);
+                if (null != mChattingFooterListener) {
+                    mChattingFooterListener.OnInEditMode();
+                }
                 break;
             case R.id.btn_send:
+                if (null != mChattingFooterListener) {
+                    mChattingFooterListener.OnSendTextMessageRequest(etInput.getText());
+                    etInput.setText("");
+                }
                 break;
             case R.id.btn_voice:
                 Log.d("tag", "btn_voice");
@@ -225,6 +246,7 @@ public class ChattingFooter extends LinearLayout implements View.OnClickListener
     }
 
     public void showSoftInputFromWindow(View view) {
+        Log.d("tag", "keyboardHeight" + keyboardHeight);
         if (vpExtra.getVisibility() == VISIBLE && keyboardHeight > 200) {
             mActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         } else {
@@ -237,6 +259,7 @@ public class ChattingFooter extends LinearLayout implements View.OnClickListener
             return;
         }
         inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+
     }
 
     @Override
@@ -276,6 +299,7 @@ public class ChattingFooter extends LinearLayout implements View.OnClickListener
             PrefUtils.setKeyboardHeight(mContext, heightDifference);
             vpLp.height = heightDifference;
             keyboardHeight = heightDifference;
+
         }
 
     }

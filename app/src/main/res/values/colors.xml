@@ -7,6 +7,8 @@
     <color name="send">#00CD00</color>
     <color name="pressed_send">#8000CD00</color>
 
-    <color name="line_color">#e5e5e5</color>
+    <color name="line_color">#dddddd</color>
     <color name="white">#fff</color>
+
+    <color name="message_black">#b3000000</color>
 </resources>

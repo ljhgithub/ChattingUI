@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="bottom">
@@ -17,8 +18,7 @@
             android:lineSpacingExtra="3dp"
             android:maxLines="3"
             android:minHeight="48dp"
-            android:paddingBottom="9dp"
-            android:text="input" />
+            android:paddingBottom="9dp" />
 
         <ImageView
             android:id="@+id/iv_voice"
@@ -84,6 +84,7 @@
             android:layout_marginRight="50dp"
             android:layout_marginTop="-9dp"
             android:background="@color/colorPrimary" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
@@ -95,5 +96,6 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/colorAccent"
-        android:visibility="gone"></android.support.v4.view.ViewPager>
+        android:visibility="gone" />
+
 </merge>

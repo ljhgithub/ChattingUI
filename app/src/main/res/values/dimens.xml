@@ -3,4 +3,19 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+
+    <!-- avatar -->
+    <dimen name="avatar_max_size">60dip</dimen>
+    <dimen name="avatar_size_default">50dip</dimen>
+    <dimen name="avatar_size_in_session">40dip</dimen>
+    <dimen name="avatar_size_in_contact">30dip</dimen>
+    <dimen name="avatar_size_in_profile">60dip</dimen>
+
+    <!-- bubble -->
+    <dimen name="max_text_bubble_width">222dip</dimen>
+    <dimen name="bubble_time_margin_top">18dip</dimen>
+    <dimen name="bubble_time_margin_bottom">8dip</dimen>
+    <dimen name="bubble_head_margin_horizontal">8dip</dimen>
+
 </resources>
