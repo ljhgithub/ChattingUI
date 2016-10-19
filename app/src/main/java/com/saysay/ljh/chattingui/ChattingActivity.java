@@ -93,9 +93,6 @@ public class ChattingActivity extends AppCompatActivity {
 
             @Override
             public void OnSendTextMessageRequest(CharSequence text) {
-                msgs.add(text.toString());
-                messageAdapter.setMsgs(msgs);
-                rlvMessage.scrollToPosition(msgs.size() - 1);
             }
 
             @Override

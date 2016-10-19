@@ -3,12 +3,12 @@ package com.saysay.ljh.chattingui;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+
+import com.saysay.ljh.chattingui.message.holder.MessageTextHolder;
+import com.saysay.ljh.chattingui.message.holder.UnknownHolder;
+import com.saysay.ljh.chattingui.message.model.IMessage;
+import com.saysay.ljh.chattingui.message.model.MsgTypeEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 public class MessageAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<String> msgs;
+    private List<IMessage> msgs;
 
     public MessageAdapter(Context context) {
         mContext = context;
@@ -28,22 +28,49 @@ public class MessageAdapter extends RecyclerView.Adapter {
         msgs = new ArrayList<>();
     }
 
-    public void setMsgs(List<String> msgs) {
+    @Override
+    public int getItemViewType(int position) {
+        return msgs.get(position).getType().getValue();
+    }
+
+    public void setMsgs(List<IMessage> msgs) {
         this.msgs = msgs;
         notifyDataSetChanged();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        SendTextHolder sendTextHolder = new SendTextHolder(mInflater.inflate(R.layout.im_msg_item, parent, false));
-        return sendTextHolder;
+        RecyclerView.ViewHolder holder;
+        switch (MsgTypeEnum.typeOfValue(viewType)) {
+            case TEXT:
+                holder = new MessageTextHolder(mInflater.inflate(R.layout.im_msg_item, parent, false));
+                break;
+            case UNDEF:
+                holder = new UnknownHolder(mInflater.inflate(R.layout.item_empty, parent, false));
+                break;
+            default:
+                holder = new UnknownHolder(mInflater.inflate(R.layout.item_empty, parent, false));
+                break;
+        }
+
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        SendTextHolder h = (SendTextHolder) holder;
-        mInflater.inflate(R.layout.im_msg_item_text, h.msgContent);
+        switch (MsgTypeEnum.typeOfValue(getItemViewType(position))) {
+            case TEXT:
+                MessageTextHolder h = (MessageTextHolder) holder;
+                h.bindMessage(msgs.get(position));
+                h.showTime(position / 2 == 0);
+                break;
+            case UNDEF:
+                break;
+            default:
+                break;
+        }
+
     }
 
     @Override
@@ -51,19 +78,4 @@ public class MessageAdapter extends RecyclerView.Adapter {
         return msgs.size();
     }
 
-    protected class SendTextHolder extends RecyclerView.ViewHolder {
-        public FrameLayout msgContent;
-        public LinearLayout msgBody;
-        public ImageView avatarLeft;
-
-        public SendTextHolder(View itemView) {
-            super(itemView);
-            avatarLeft = (ImageView) itemView.findViewById(R.id.message_item_avatar_left);
-            msgBody = (LinearLayout) itemView.findViewById(R.id.message_item_body);
-            msgContent = (FrameLayout) itemView.findViewById(R.id.message_item_content);
-            FrameLayout frameLayout = (FrameLayout) itemView.findViewById(R.id.msg_body_layout);
-            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) frameLayout.getLayoutParams();
-            lp.addRule(RelativeLayout.ALIGN_TOP, avatarLeft.getId());
-        }
-    }
 }

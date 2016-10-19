@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,22 +15,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
+import com.saysay.ljh.chattingui.message.model.Container;
+import com.saysay.ljh.chattingui.message.model.IMessage;
+import com.saysay.ljh.chattingui.message.model.MessageTextBody;
+import com.saysay.ljh.chattingui.message.model.ModuleProxy;
+import com.saysay.ljh.chattingui.message.model.MsgDirectionEnum;
+import com.saysay.ljh.chattingui.message.model.MsgStatusEnum;
+import com.saysay.ljh.chattingui.message.model.MsgTypeEnum;
+import com.saysay.ljh.chattingui.message.model.SimpleMessage;
 import com.saysay.ljh.chattingui.widgets.ChattingFooter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
  * Created by ljh on 2016/10/18.
  */
 
-public class ChattingFragment extends Fragment implements ChattingFooter.OnChattingFooterListener {
+public class ChattingFragment extends Fragment implements ChattingFooter.OnChattingFooterListener, ModuleProxy {
 
     private ChattingFooter mChattingFooter;
     private View mRoot;
     private RecyclerView rlvMessage;
     private MessageAdapter messageAdapter;
-    private List<String> msgs = new ArrayList<>();
+    private List<IMessage> msgs = new ArrayList<>();
     private GestureDetector detector;
 
     private GestureDetector.SimpleOnGestureListener simpleOnGestureListener = new GestureDetector.SimpleOnGestureListener() {
@@ -84,6 +94,9 @@ public class ChattingFragment extends Fragment implements ChattingFooter.OnChatt
                 return false;
             }
         });
+
+        Container container=new Container(getActivity(),"ssss",this);
+        mChattingFooter.setContainer(container);
     }
 
     @Override
@@ -111,9 +124,29 @@ public class ChattingFragment extends Fragment implements ChattingFooter.OnChatt
 
     }
 
+    int position = 0;
+
     @Override
     public void OnSendTextMessageRequest(CharSequence text) {
-        msgs.add(text.toString());
+        SimpleMessage simpleMessage = new SimpleMessage();
+        position++;
+        simpleMessage.setType(MsgTypeEnum.TEXT);
+
+        if (position % 2 == 0) {
+            simpleMessage.setDirection(MsgDirectionEnum.SEND);
+        } else {
+            simpleMessage.setDirection(MsgDirectionEnum.RECEIVE);
+        }
+        if (position % 3 == 0) {
+            simpleMessage.setStatus(MsgStatusEnum.SUCCESS);
+        } else {
+            simpleMessage.setStatus(MsgStatusEnum.FAIL);
+        }
+        simpleMessage.setTime(Calendar.getInstance().getTimeInMillis());
+        MessageTextBody messageText = new MessageTextBody();
+        messageText.setContent(text.toString());
+        simpleMessage.setMessageBody(messageText);
+        msgs.add(simpleMessage);
         messageAdapter.setMsgs(msgs);
         rlvMessage.scrollToPosition(msgs.size() - 1);
     }
@@ -164,5 +197,10 @@ public class ChattingFragment extends Fragment implements ChattingFooter.OnChatt
             }
         }
         return b;
+    }
+
+    @Override
+    public void sendMessage(IMessage message) {
+        Log.d("tag","sendMessage");
     }
 }
