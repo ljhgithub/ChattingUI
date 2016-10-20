@@ -139,7 +139,7 @@ public class ChattingFragment extends Fragment implements ChattingFooter.OnChatt
     public void OnSendTextMessageRequest(CharSequence text) {
         SimpleMessage simpleMessage = new SimpleMessage();
 
-        simpleMessage.setType(MsgTypeEnum.IMAGE);
+        simpleMessage.setType(MsgTypeEnum.TEXT);
 
         if (position % 2 == 0) {
             simpleMessage.setDirection(MsgDirectionEnum.SEND);
