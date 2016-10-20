@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
+import com.saysay.ljh.chattingui.message.adapter.MessageAdapter;
 import com.saysay.ljh.chattingui.message.model.Container;
 import com.saysay.ljh.chattingui.message.model.IMessage;
 import com.saysay.ljh.chattingui.message.model.MessageTextBody;
@@ -95,7 +96,7 @@ public class ChattingFragment extends Fragment implements ChattingFooter.OnChatt
             }
         });
 
-        Container container=new Container(getActivity(),"ssss",this);
+        Container container = new Container(getActivity(), "ssss", this);
         mChattingFooter.setContainer(container);
     }
 
@@ -125,12 +126,20 @@ public class ChattingFragment extends Fragment implements ChattingFooter.OnChatt
     }
 
     int position = 0;
+//    static List<String> urls = new ArrayList<>();
+//
+//    static {
+//        urls.add("/storage/emulated/0/1yibao/a.jpg");
+//        urls.add("/storage/emulated/0/1yibao/b.jpg");
+//        urls.add("/storage/emulated/0/1yibao/c.jpg");
+//        urls.add("/storage/emulated/0/1yibao/d.jpg");
+//    }
 
     @Override
     public void OnSendTextMessageRequest(CharSequence text) {
         SimpleMessage simpleMessage = new SimpleMessage();
-        position++;
-        simpleMessage.setType(MsgTypeEnum.TEXT);
+
+        simpleMessage.setType(MsgTypeEnum.IMAGE);
 
         if (position % 2 == 0) {
             simpleMessage.setDirection(MsgDirectionEnum.SEND);
@@ -146,9 +155,19 @@ public class ChattingFragment extends Fragment implements ChattingFooter.OnChatt
         MessageTextBody messageText = new MessageTextBody();
         messageText.setContent(text.toString());
         simpleMessage.setMessageBody(messageText);
+
+//        MessagePictureBody messagePictureBody = new MessagePictureBody();
+//        messagePictureBody.setPath(urls.get(position));
+//        simpleMessage.setMessageBody(messagePictureBody);
         msgs.add(simpleMessage);
         messageAdapter.setMsgs(msgs);
-        rlvMessage.scrollToPosition(msgs.size() - 1);
+        rlvMessage.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rlvMessage.scrollToPosition(msgs.size() - 1);
+            }
+        }, 100);
+        position++;
     }
 
     @Override
@@ -201,6 +220,6 @@ public class ChattingFragment extends Fragment implements ChattingFooter.OnChatt
 
     @Override
     public void sendMessage(IMessage message) {
-        Log.d("tag","sendMessage");
+        Log.d("tag", "sendMessage");
     }
 }

@@ -20,7 +20,7 @@
         android:textColor="#ffffff"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:visibility="visible"
+        android:visibility="gone"
         tools:text="2012/12/12" />
 
     <ImageView
@@ -31,7 +31,7 @@
         android:layout_below="@id/message_item_time"
         android:layout_marginRight="@dimen/bubble_head_margin_horizontal"
         android:src="@mipmap/ic_launcher"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/message_item_avatar_right"
@@ -41,7 +41,7 @@
         android:layout_below="@id/message_item_time"
         android:layout_marginLeft="@dimen/bubble_head_margin_horizontal"
         android:src="@mipmap/ic_launcher"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/message_item_name_layout"
@@ -75,7 +75,7 @@
             android:singleLine="true"
             android:textColor="#000000"
             android:textSize="12sp"
-            android:visibility="visible"
+            android:visibility="gone"
             tools:text="李健" />
     </LinearLayout>
 
@@ -106,7 +106,7 @@
                 android:layout_marginRight="2dp"
                 android:indeterminate="true"
                 android:indeterminateDrawable="@drawable/im_progress_small_white"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/message_item_alert"
@@ -116,7 +116,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:src="@drawable/im_ic_failed"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <FrameLayout
                 android:id="@+id/message_item_content"

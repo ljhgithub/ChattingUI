@@ -6,6 +6,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.saysay.ljh.chattingui.utils.ScreenUtil;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -14,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ScreenUtil.init(this);
 
     }
 

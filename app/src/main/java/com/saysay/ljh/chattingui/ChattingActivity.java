@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.saysay.ljh.chattingui.message.adapter.MessageAdapter;
 import com.saysay.ljh.chattingui.widgets.ChattingFooter;
 
 import java.util.ArrayList;

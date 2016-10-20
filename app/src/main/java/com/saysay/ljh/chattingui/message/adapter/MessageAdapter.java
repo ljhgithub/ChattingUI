@@ -1,10 +1,12 @@
-package com.saysay.ljh.chattingui;
+package com.saysay.ljh.chattingui.message.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.saysay.ljh.chattingui.R;
+import com.saysay.ljh.chattingui.message.holder.MessagePictureHolder;
 import com.saysay.ljh.chattingui.message.holder.MessageTextHolder;
 import com.saysay.ljh.chattingui.message.holder.UnknownHolder;
 import com.saysay.ljh.chattingui.message.model.IMessage;
@@ -45,6 +47,9 @@ public class MessageAdapter extends RecyclerView.Adapter {
             case TEXT:
                 holder = new MessageTextHolder(mInflater.inflate(R.layout.im_msg_item, parent, false));
                 break;
+            case IMAGE:
+                holder = new MessagePictureHolder(mInflater.inflate(R.layout.im_msg_item, parent, false));
+                break;
             case UNDEF:
                 holder = new UnknownHolder(mInflater.inflate(R.layout.item_empty, parent, false));
                 break;
@@ -60,11 +65,18 @@ public class MessageAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         switch (MsgTypeEnum.typeOfValue(getItemViewType(position))) {
-            case TEXT:
+            case TEXT: {
                 MessageTextHolder h = (MessageTextHolder) holder;
                 h.bindMessage(msgs.get(position));
                 h.showTime(position / 2 == 0);
                 break;
+            }
+            case IMAGE: {
+                MessagePictureHolder h = (MessagePictureHolder) holder;
+                h.bindMessage(msgs.get(position));
+                h.showTime(position / 2 == 0);
+                break;
+            }
             case UNDEF:
                 break;
             default:
