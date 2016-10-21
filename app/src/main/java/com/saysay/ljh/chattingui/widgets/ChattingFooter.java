@@ -52,7 +52,7 @@ public class ChattingFooter extends LinearLayout implements View.OnClickListener
     private Button btnSend, btnVoice;
     private Activity mActivity;
     private int keyboardHeight;
-    private LinearLayout.LayoutParams vpLp;
+    private LinearLayout.LayoutParams extraLp;
     private LayoutInflater mInflater;
     private OnChattingFooterListener mChattingFooterListener;
     private View extraView;
@@ -125,10 +125,10 @@ public class ChattingFooter extends LinearLayout implements View.OnClickListener
         etInput.addTextChangedListener(this);
         ivVoice.setSelected(false);
         ivEmoji.setSelected(false);
-        vpLp = (LayoutParams) extraView.getLayoutParams();
-        vpLp.height = keyboardHeight < 200 ? WindowManager.LayoutParams.WRAP_CONTENT : keyboardHeight;
-        vpLp.weight = ViewGroup.LayoutParams.MATCH_PARENT;
-        extraView.setLayoutParams(vpLp);
+        extraLp = (LayoutParams) extraView.getLayoutParams();
+        extraLp.height = keyboardHeight < 200 ? WindowManager.LayoutParams.WRAP_CONTENT : keyboardHeight;
+        extraLp.weight = ViewGroup.LayoutParams.MATCH_PARENT;
+        extraView.setLayoutParams(extraLp);
         btnVoice.setOnTouchListener(this);
         etInput.setOnKeyBackListener(new EditTextPreIme.OnKeyBackListener() {
             @Override
@@ -342,18 +342,29 @@ public class ChattingFooter extends LinearLayout implements View.OnClickListener
                 .getHeight();
         int heightDifference = screenHeight
                 - (rootRect.bottom - rootRect.top);
-        int resourceId = this.getResources()
+        int statusResourceId = this.getResources()
                 .getIdentifier("status_bar_height",
                         "dimen", "android");
 
-        if (resourceId > 0) {
+        Log.d("tag", "onGlobalLayout " + "statusResourceId " + statusResourceId);
+        int navigationResourceId = this.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        Log.d("tag", "onGlobalLayout " + "navigationResourceId " + navigationResourceId);
+
+        if (statusResourceId > 0) {
             paddingTop = parentRoot.getResources()
-                    .getDimensionPixelSize(resourceId);
+                    .getDimensionPixelSize(statusResourceId);
             heightDifference -= paddingTop;
+            Log.d("tag", "onGlobalLayout paddingTop" + paddingTop);
+        }
+        if (navigationResourceId > 0) {
+            paddingTop = parentRoot.getResources()
+                    .getDimensionPixelSize(navigationResourceId);
+            heightDifference -= paddingTop;
+            Log.d("tag", "onGlobalLayout paddingTop" + paddingTop);
         }
         if (heightDifference > 200) {
             PrefUtils.setKeyboardHeight(mContext, heightDifference);
-            vpLp.height = heightDifference;
+            extraLp.height = heightDifference;
             keyboardHeight = heightDifference;
 
         }
